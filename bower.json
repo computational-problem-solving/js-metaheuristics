@@ -1,0 +1,7 @@
+{
+  "name": "ho",
+  "version": "0.0.0",
+  "description" : "heuristic optimization algorithm templates for JavaScript",
+  "homepage": "https://github.com/aureooms/ho",
+  "license": "GPL v2"
+}
