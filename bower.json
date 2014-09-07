@@ -1,7 +1,7 @@
 {
 	"name": "aureooms-js-ho",
-	"version": "0.0.0",
-	"description" : "heuristic optimization code bricks for JavaScript",
+	"version": "0.1.0",
+	"description": "heuristic optimization code bricks for JavaScript",
 	"homepage": "https://aureooms.github.io/js-ho",
 	"license": "AGPL-3.0",
 	"main": "js/dist/ho.js",
