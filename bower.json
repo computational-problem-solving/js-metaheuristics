@@ -1,7 +1,19 @@
 {
-  "name": "ho",
-  "version": "0.0.0",
-  "description" : "heuristic optimization algorithm templates for JavaScript",
-  "homepage": "https://github.com/aureooms/ho",
-  "license": "GPL v2"
+	"name": "aureooms-js-ho",
+	"version": "0.0.0",
+	"description" : "heuristic optimization code bricks for JavaScript",
+	"homepage": "https://aureooms.github.io/js-ho",
+	"license": "AGPL-3.0",
+	"main": "js/dist/ho.js",
+	"ignore": [
+		"js/index.js",
+		"js/src",
+		"test",
+		"pkg.json",
+		"package.json",
+		".groc.json",
+		".travis.yml",
+		".gitignore",
+		"README.md"
+	]
 }
