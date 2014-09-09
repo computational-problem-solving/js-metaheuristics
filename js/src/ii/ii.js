@@ -1,10 +1,3 @@
-(function(exports, undefined){
-
-	'use strict';
-
-
-/* js/src/ii */
-/* js/src/ii/ii.js */
 
 /**
  * Iterative Improvement
@@ -29,4 +22,3 @@ var __ii__ = function (pivoting, improved, mutate) {
 };
 
 exports.__ii__ = __ii__;
-})(typeof exports === 'undefined' ? this['ho'] = {} : exports);
