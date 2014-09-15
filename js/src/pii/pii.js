@@ -3,7 +3,7 @@
  * Probabilistic iterative Improvement
  */
 
-var __pii__ = function (end, pivoting, delta, accept) {
+var __pii__ = function (end, random, delta, accept) {
 
 	var pii = function (solution) {
 		var candidate, tmp, d;
@@ -12,7 +12,7 @@ var __pii__ = function (end, pivoting, delta, accept) {
 
 		while (!end()) {
 
-			candidate = pivoting(tmp);
+			candidate = random(tmp);
 
 			d = delta(candidate, tmp);
 
@@ -26,6 +26,8 @@ var __pii__ = function (end, pivoting, delta, accept) {
 				solution = candidate;
 			}
 		}
+
+		return solution;
 
 
 	};

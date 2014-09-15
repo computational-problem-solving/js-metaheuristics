@@ -3,15 +3,18 @@
  * Iterative Improvement
  */
 
-var __ii__ = function (pivoting, improved, mutate) {
+var __ii__ = function (pivoting, delta, mutate) {
 
 	var ii = function (solution) {
-		var mutation;
+		var tmp, d;
 
-		mutation = pivoting(solution);
-		while (improved(mutation)) {
-			solution = mutate(mutation, solution);
-			mutation = pivoting(solution);
+		for (;;) {
+			tmp = pivoting(solution);
+			d = delta(tmp, solution);
+			if (d >= 0) {
+				break;
+			}
+			solution = tmp;
 		}
 
 		return solution;
