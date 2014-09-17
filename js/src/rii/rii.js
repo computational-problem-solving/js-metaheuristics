@@ -6,23 +6,23 @@
 var __rii__ = function (end, pivote, pivoting, random, delta) {
 
 	var rii = function (solution) {
-		var tmp, d;
+		var candidate, d;
 
-		tmp = solution;
+		candidate = solution;
 
 		while (!end()) {
 
 			if (pivote()) {
-				tmp = pivoting(tmp);
+				candidate = pivoting(candidate);
 			}
 			else {
-				tmp = random(tmp);
+				candidate = random(candidate);
 			}
 
-			d = delta(tmp, solution);
+			d = delta(candidate, solution);
 
 			if (d < 0) {
-				solution = tmp;
+				solution = candidate;
 			}
 		}
 
