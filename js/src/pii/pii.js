@@ -8,22 +8,22 @@ var __pii__ = function (end, random, delta, accept) {
 	var pii = function (solution) {
 		var candidate, tmp, d;
 
-		tmp = solution;
+		candidate = solution;
 
 		while (!end()) {
 
-			candidate = random(tmp);
+			tmp = random(candidate);
 
-			d = delta(candidate, tmp);
+			d = delta(tmp, candidate);
 
 			if (d <= 0 || accept(d)) {
-				tmp = candidate;
-			}
+				candidate = tmp;
 
-			d = delta(candidate, solution);
+				d = delta(candidate, solution);
 
-			if (d < 0) {
-				solution = candidate;
+				if (d < 0) {
+					solution = candidate;
+				}
 			}
 		}
 

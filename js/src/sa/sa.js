@@ -3,7 +3,7 @@
  * Simulated Annealing
  */
 
-var __sa__ = function (end, pivoting, delta, accept, improvement, restart, temperature, alpha, cooldown) {
+var __sa__ = function (end, pivoting, delta, accept, improvement, temperature, alpha, cooldown) {
 
 	var sa = function (solution) {
 		var tmp, candidate, d, t;
@@ -17,20 +17,15 @@ var __sa__ = function (end, pivoting, delta, accept, improvement, restart, tempe
 
 			d = delta(tmp, candidate);
 
-			if (d <= 0 || (t > 0 && accept(d))) {
+			if (d <= 0 || (t > 0 && accept(d, t))) {
 				candidate = tmp;
-			}
 
-			d = delta(candidate, solution);
+				d = delta(candidate, solution);
 
-			if(d < 0){
-				solution = candidate;
-				improvement(solution);
-			}
-			else if (restart()) {
-				t = temperature;
-				candidate = solution;
-				continue;
+				if(d < 0){
+					solution = candidate;
+					improvement(solution);
+				}
 			}
 
 			if (cooldown()) {
