@@ -3,25 +3,25 @@
  * Iterative Improvement
  */
 
-var __ii__ = function (pivoting, delta) {
+var ii = function ( pivoting , delta , solution ) {
 
-	var ii = function (solution) {
-		var candidate, d;
+	var candidate , d ;
 
-		for (;;) {
-			candidate = pivoting(solution);
-			d = delta(candidate, solution);
-			if (d >= 0) {
-				break;
-			}
-			solution = candidate;
+	for ( ; ; ) {
+
+		candidate = pivoting( solution ) ;
+
+		d = delta( candidate , solution ) ;
+
+		if ( d >= 0 ) {
+			break ;
 		}
 
-		return solution;
-	};
+		solution = candidate ;
+	}
 
-	return ii;
+	return solution ;
 
-};
+} ;
 
-exports.__ii__ = __ii__;
+exports.ii = ii ;
