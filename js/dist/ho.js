@@ -3,6 +3,42 @@
 	'use strict';
 
 
+/* js/src/ig */
+/* js/src/ig/ig.js */
+
+var __ig__ = function(localsearch, alter, pivoting, delta){
+
+	var ig = function (solution) {
+
+		var candidate, tmp, d;
+
+		solution = localsearch(solution);
+		candidate = solution;
+
+		while (!end()) {
+
+			tmp = alter(candidate);
+			tmp = localsearch(tmp);
+
+			d = delta(tmp, candidate);
+			if (d <= 0 || (t > 0 && accept(d, t))) {
+				candidate = tmp;
+
+
+				d = delta(candidate, solution);
+				if (d < 0) {
+					solution = candidate;
+				}
+			}
+		}
+
+		return solution;
+	};
+
+	return ig;
+};
+
+exports.__ig__ = __ig__;
 /* js/src/ii */
 /* js/src/ii/ii.js */
 
@@ -10,28 +46,29 @@
  * Iterative Improvement
  */
 
-var __ii__ = function (pivoting, delta, mutate) {
+var ii = function ( pivoting , delta , solution ) {
 
-	var ii = function (solution) {
-		var tmp, d;
+	var candidate , d ;
 
-		for (;;) {
-			tmp = pivoting(solution);
-			d = delta(tmp, solution);
-			if (d >= 0) {
-				break;
-			}
-			solution = tmp;
+	for ( ; ; ) {
+
+		candidate = pivoting( solution ) ;
+
+		d = delta( candidate , solution ) ;
+
+		if ( d >= 0 ) {
+			break ;
 		}
 
-		return solution;
-	};
+		solution = candidate ;
+	}
 
-	return ii;
+	return solution ;
 
-};
+} ;
 
-exports.__ii__ = __ii__;
+exports.ii = ii ;
+
 /* js/src/pii */
 /* js/src/pii/pii.js */
 	
@@ -44,22 +81,22 @@ var __pii__ = function (end, random, delta, accept) {
 	var pii = function (solution) {
 		var candidate, tmp, d;
 
-		tmp = solution;
+		candidate = solution;
 
 		while (!end()) {
 
-			candidate = random(tmp);
+			tmp = random(candidate);
 
-			d = delta(candidate, tmp);
+			d = delta(tmp, candidate);
 
 			if (d <= 0 || accept(d)) {
-				tmp = candidate;
-			}
+				candidate = tmp;
 
-			d = delta(candidate, solution);
+				d = delta(candidate, solution);
 
-			if (d < 0) {
-				solution = candidate;
+				if (d < 0) {
+					solution = candidate;
+				}
 			}
 		}
 
@@ -83,23 +120,23 @@ exports.__pii__ = __pii__;
 var __rii__ = function (end, pivote, pivoting, random, delta) {
 
 	var rii = function (solution) {
-		var tmp, d;
+		var candidate, d;
 
-		tmp = solution;
+		candidate = solution;
 
 		while (!end()) {
 
 			if (pivote()) {
-				tmp = pivoting(tmp);
+				candidate = pivoting(candidate);
 			}
 			else {
-				tmp = random(tmp);
+				candidate = random(candidate);
 			}
 
-			d = delta(tmp, solution);
+			d = delta(candidate, solution);
 
 			if (d < 0) {
-				solution = tmp;
+				solution = candidate;
 			}
 		}
 
@@ -120,7 +157,7 @@ exports.__rii__ = __rii__;
  * Simulated Annealing
  */
 
-var __sa__ = function (end, pivoting, delta, accept, improvement, restart, temperature, alpha, cooldown) {
+var __sa__ = function (end, pivoting, delta, accept, improvement, temperature, alpha, cooldown) {
 
 	var sa = function (solution) {
 		var tmp, candidate, d, t;
@@ -134,20 +171,15 @@ var __sa__ = function (end, pivoting, delta, accept, improvement, restart, tempe
 
 			d = delta(tmp, candidate);
 
-			if (d <= 0 || (t > 0 && accept(d))) {
+			if (d <= 0 || (t > 0 && accept(d, t))) {
 				candidate = tmp;
-			}
 
-			d = delta(candidate, solution);
+				d = delta(candidate, solution);
 
-			if(d < 0){
-				solution = candidate;
-				improvement(solution);
-			}
-			else if (restart()) {
-				t = temperature;
-				candidate = solution;
-				continue;
+				if(d < 0){
+					solution = candidate;
+					improvement(solution);
+				}
 			}
 
 			if (cooldown()) {
@@ -161,4 +193,36 @@ var __sa__ = function (end, pivoting, delta, accept, improvement, restart, tempe
 };
 
 exports.__sa__ = __sa__;
+/* js/src/vnd */
+/* js/src/vnd/vnd.js */
+
+var __vnd__ = function(neighborhoods, n, delta){
+
+	var vnd = function(solution){
+
+		var k, pivoting, candidate;
+
+		k = 0;
+
+		while(k < n){
+			for (;;) {
+				pivoting = neighborhoods[k];
+				candidate = pivoting(solution);
+				d = delta(candidate, solution);
+				if (d >= 0) {
+					break;
+				}
+				k = 0;
+				solution = candidate;
+			}
+			++k;
+		}
+
+	};
+
+	return vnd;
+
+};
+
+exports.__vnd__ = __vnd__;
 })(typeof exports === 'undefined' ? this['ho'] = {} : exports);

@@ -1,7 +1,7 @@
 {
 	"name": "aureooms-js-ho",
 	"description": "heuristic optimization code bricks for JavaScript",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"main": "js/dist/ho.js",
 	"dependencies": {},
 	"devDependencies": {
