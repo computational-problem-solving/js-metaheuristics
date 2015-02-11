@@ -1,0 +1,11 @@
+{
+	"description": "heuristic optimization code bricks for JavaScript",
+	"version": "0.1.0",
+	"repo": "aureooms/js-ho",
+	"scripts": [
+		"js/dist/ho.js"
+	],
+	"name": "aureooms-js-ho",
+	"license": "AGPL-3.0",
+	"main": "js/dist/ho.js"
+}
