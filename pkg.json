@@ -1,17 +1,18 @@
 {
-	"ns": "ho",
-	"code": {
-		"main": [
+	"name" : "ho",
+	"code" : {
+		"main" : [
 			"js",
 			"dist",
 			"ho.js"
 		],
-		"test": [
+		"test" : [
 			"test",
 			"js"
 		]
 	},
 	"src": "js/src/",
 	"debug": false,
-	"out": "js/dist/"
+	"out": "js/dist/",
+	"babel": true
 }
