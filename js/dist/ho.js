@@ -43,34 +43,127 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 		};
 
 		exports.__ig__ = __ig__;
-		/* js/src/ii */
-		/* js/src/ii/ii.js */
+		/* js/src/local */
+		/* js/src/local/ii.js */
 
 		/**
    * Iterative Improvement
    */
 
-		var ii = function ii(pivoting, delta, solution) {
+		var ii = regeneratorRuntime.mark(function ii(_ref, pivoting, walk, evaluate, apply) {
+			var _ref2 = _slicedToArray(_ref, 2);
 
-			var candidate, d;
+			var solution = _ref2[0];
+			var current = _ref2[1];
 
-			for (;;) {
+			var _pivoting, _pivoting2, mutation, fitness;
 
-				candidate = pivoting(solution);
+			return regeneratorRuntime.wrap(function ii$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						if (!true) {
+							context$3$0.next = 13;
+							break;
+						}
 
-				d = delta(candidate, solution);
+						_pivoting = pivoting([solution, current], walk, evaluate);
+						_pivoting2 = _slicedToArray(_pivoting, 2);
+						mutation = _pivoting2[0];
+						fitness = _pivoting2[1];
 
-				if (d >= 0) {
-					break;
+						if (!(mutation === null)) {
+							context$3$0.next = 7;
+							break;
+						}
+
+						return context$3$0.abrupt("break", 13);
+
+					case 7:
+
+						apply(solution, mutation);
+
+						context$3$0.next = 10;
+						return [solution, fitness];
+
+					case 10:
+
+						current = fitness;
+
+						context$3$0.next = 0;
+						break;
+
+					case 13:
+					case "end":
+						return context$3$0.stop();
 				}
-
-				solution = candidate;
-			}
-
-			return solution;
-		};
+			}, ii, this);
+		});
 
 		exports.ii = ii;
+
+		/* js/src/local/vnd.js */
+		var vnd = regeneratorRuntime.mark(function vnd(_ref3, N, neighborhoods) {
+			var _ref32 = _slicedToArray(_ref3, 2);
+
+			var solution = _ref32[0];
+			var best = _ref32[1];
+
+			var k, n, _n$pivoting, _n$pivoting2, mutation, fitness, _n$pivoting3, _n$pivoting32;
+
+			return regeneratorRuntime.wrap(function vnd$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						k = 0;
+
+					case 1:
+						if (!(k < N)) {
+							context$3$0.next = 22;
+							break;
+						}
+
+						n = neighborhoods[k];
+						_n$pivoting = n.pivoting(solution, n.walk, n.evaluate);
+						_n$pivoting2 = _slicedToArray(_n$pivoting, 2);
+						mutation = _n$pivoting2[0];
+						fitness = _n$pivoting2[1];
+
+					case 7:
+						if (!(fitness > best)) {
+							context$3$0.next = 19;
+							break;
+						}
+
+						best = fitness;
+						n.apply(solution, mutation);
+
+						context$3$0.next = 12;
+						return [solution, fitness];
+
+					case 12:
+
+						k = 0;
+						_n$pivoting3 = n.pivoting(solution, n.walk, n.evaluate);
+						_n$pivoting32 = _slicedToArray(_n$pivoting3, 2);
+						mutation = _n$pivoting32[0];
+						fitness = _n$pivoting32[1];
+						context$3$0.next = 7;
+						break;
+
+					case 19:
+
+						k += 1;
+
+						context$3$0.next = 1;
+						break;
+
+					case 22:
+					case "end":
+						return context$3$0.stop();
+				}
+			}, vnd, this);
+		});
+
+		exports.vnd = vnd;
 
 		/* js/src/pii */
 		/* js/src/pii/pii.js */
@@ -112,11 +205,11 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 		exports.__pii__ = __pii__;
 		/* js/src/pivoting */
 		/* js/src/pivoting/best.js */
-		var best = function best(_ref, walk, evaluate) {
-			var _ref2 = _slicedToArray(_ref, 2);
+		var best = function best(_ref4, walk, evaluate) {
+			var _ref42 = _slicedToArray(_ref4, 2);
 
-			var solution = _ref2[0];
-			var _best = _ref2[1];
+			var solution = _ref42[0];
+			var _best = _ref42[1];
 
 			var candidate = null;
 
@@ -157,11 +250,11 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 		exports.best = best;
 
 		/* js/src/pivoting/first.js */
-		var first = function first(_ref3, walk, evaluate) {
-			var _ref32 = _slicedToArray(_ref3, 2);
+		var first = function first(_ref5, walk, evaluate) {
+			var _ref52 = _slicedToArray(_ref5, 2);
 
-			var solution = _ref32[0];
-			var current = _ref32[1];
+			var solution = _ref52[0];
+			var current = _ref52[1];
 			var _iteratorNormalCompletion2 = true;
 			var _didIteratorError2 = false;
 			var _iteratorError2 = undefined;
@@ -196,11 +289,11 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 		exports.first = first;
 
 		/* js/src/pivoting/firstandeq.js */
-		var firstandeq = function firstandeq(_ref4, walk, evaluate) {
-			var _ref42 = _slicedToArray(_ref4, 2);
+		var firstandeq = function firstandeq(_ref6, walk, evaluate) {
+			var _ref62 = _slicedToArray(_ref6, 2);
 
-			var solution = _ref42[0];
-			var current = _ref42[1];
+			var solution = _ref62[0];
+			var current = _ref62[1];
 			var _iteratorNormalCompletion3 = true;
 			var _didIteratorError3 = false;
 			var _iteratorError3 = undefined;
@@ -235,11 +328,11 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 		exports.firstandeq = firstandeq;
 
 		/* js/src/pivoting/firstoreq.js */
-		var firstoreq = function firstoreq(_ref5, walk, evaluate) {
-			var _ref52 = _slicedToArray(_ref5, 2);
+		var firstoreq = function firstoreq(_ref7, walk, evaluate) {
+			var _ref72 = _slicedToArray(_ref7, 2);
 
-			var solution = _ref52[0];
-			var best = _ref52[1];
+			var solution = _ref72[0];
+			var best = _ref72[1];
 
 			var candidate = null;
 
@@ -359,36 +452,6 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 		};
 
 		exports.__sa__ = __sa__;
-		/* js/src/vnd */
-		/* js/src/vnd/vnd.js */
-
-		var __vnd__ = function __vnd__(neighborhoods, n, delta) {
-
-			var vnd = function vnd(solution) {
-
-				var k, pivoting, candidate;
-
-				k = 0;
-
-				while (k < n) {
-					for (;;) {
-						pivoting = neighborhoods[k];
-						candidate = pivoting(solution);
-						d = delta(candidate, solution);
-						if (d >= 0) {
-							break;
-						}
-						k = 0;
-						solution = candidate;
-					}
-					++k;
-				}
-			};
-
-			return vnd;
-		};
-
-		exports.__vnd__ = __vnd__;
 		return exports;
 	};
 	if (typeof exports === "object") {
