@@ -15,6 +15,84 @@ Metaheuristic code bricks for JavaScript.
 [![GitHub issues](http://img.shields.io/github/issues/aureooms/js-metaheuristics.svg?style=flat)](https://github.com/aureooms/js-metaheuristics/issues)
 [![Inline docs](http://inch-ci.org/github/aureooms/js-metaheuristics.svg?branch=master&style=shields)](http://inch-ci.org/github/aureooms/js-metaheuristics)
 
+Can be managed through [jspm](https://github.com/jspm/jspm-cli),
+[duo](https://github.com/duojs/duo),
+[component](https://github.com/componentjs/component),
+[bower](https://github.com/bower/bower),
+[ender](https://github.com/ender-js/Ender),
+[jam](https://github.com/caolan/jam),
+[spm](https://github.com/spmjs/spm),
+and [npm](https://github.com/npm/npm).
+
+## Install
+
+### jspm
+```terminal
+jspm install github:aureooms/js-metaheuristics
+# or
+jspm install npm:aureooms-js-metaheuristics
+```
+### duo
+No install step needed for duo!
+
+### component
+```terminal
+component install aureooms/js-metaheuristics
+```
+
+### bower
+```terminal
+bower install aureooms-js-metaheuristics
+```
+
+### ender
+```terminal
+ender add aureooms-js-metaheuristics
+```
+
+### jam
+```terminal
+jam install aureooms-js-metaheuristics
+```
+
+### spm
+```terminal
+spm install aureooms-js-metaheuristics --save
+```
+
+### npm
+```terminal
+npm install aureooms-js-metaheuristics --save
+```
+
+## Require
+### jspm
+```js
+let metaheuristics = require( "github:aureooms/js-metaheuristics" ) ;
+// or
+import metaheuristics from 'aureooms-js-metaheuristics' ;
+```
+### duo
+```js
+let metaheuristics = require( "aureooms/js-metaheuristics" ) ;
+```
+
+### component, ender, spm, npm
+```js
+let metaheuristics = require( "aureooms-js-metaheuristics" ) ;
+```
+
+### bower
+The script tag exposes the global variable `metaheuristics`.
+```html
+<script src="bower_components/aureooms-js-metaheuristics/js/dist/metaheuristics.min.js"></script>
+```
+Alternatively, you can use any tool mentioned [here](http://bower.io/docs/tools/).
+
+### jam
+```js
+require( [ "aureooms-js-metaheuristics" ] , function ( metaheuristics ) { ... } ) ;
+```
 
 ## Use
 
