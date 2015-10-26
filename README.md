@@ -1,7 +1,7 @@
 [js-ho](http://aureooms.github.io/js-ho)
 ==
 
-Meta-heuristic optimization code bricks for JavaScript.
+Metaheuristic code bricks for JavaScript.
 
 [![NPM license](http://img.shields.io/npm/l/aureooms-js-ho.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-ho/master/LICENSE)
 [![NPM version](http://img.shields.io/npm/v/aureooms-js-ho.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-ho)
