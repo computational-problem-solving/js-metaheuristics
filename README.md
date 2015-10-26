@@ -50,9 +50,15 @@ The signature of a pivoting method is the following
 let [ mutation , fitness ] = pivoting( [ solution , best ] , walk , evaluate ) ;
 ```
 
-### Local search methods
+### Search methods
 
-Localsearch methods eventually halt
+Global and local search methods either halt or loop forerver. In order to
+maintain a fine-grained step count, every step of the search method will yield
+a solution. This means there will be a lot of repetitions.
+
+#### Halting
+
+You can iterate over all candidates
 
 ```js
 for ( const [ candidate , fitness ] of localsearch( [ solution , best ] ) ) ... ;
@@ -66,24 +72,19 @@ import { max } from 'aureooms-js-itertools' ;
 let [ candidate , fitness ] = max( attr( increasing , 1 ) , localsearch( [ solution , best ] ) ) ;
 ```
 
-You can also only keep the first `n` candidates
+#### Non-halting
+
+For non-halting methods you can also only restrict your search to
+the first `n` candidates
 
 ```js
 import { head } from 'aureooms-js-itertools' ;
 for ( const [ candidate , fitness ] of head( localsearch( solution , best ) , n ) ) ... ;
 ```
-
-### Global search methods
-
-Localsearch methods eventually halt.
-```js
-for ( const [ candidate , fitness ] of localsearch( [ solution , best ] ) ) ... ;
-```
-
-To keep only the best candidate, maximize over fitness.
+The same is valid for selecting the best of the first `n` candidates
 
 ```js
 import { increasing , attr } from 'aureooms-js-compare' ;
-import { max } from 'aureooms-js-itertools' ;
-let [ candidate , fitness ] = max( attr( increasing , 1 ) , localsearch( [ solution , best ] ) ) ;
+import { head , max } from 'aureooms-js-itertools' ;
+let [ candidate , fitness ] = max( attr( increasing , 1 ) , head( localsearch( [ solution , best ] ) , n ) ) ;
 ```
