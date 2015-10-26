@@ -28,12 +28,16 @@
 		"metaheuristic",
 		"metaheuristics",
 		"heuristic",
-		"optimization"
+		"optimization",
+		"ender"
 	],
 	"author": "aureooms",
 	"license": "AGPL-3.0",
 	"bugs": {
 		"url": "https://github.com/aureooms/js-metaheuristics/issues"
 	},
-	"metaheuristicsmepage": "https://aureooms.github.io/js-metaheuristics"
+	"homepage": "https://aureooms.github.io/js-metaheuristics",
+	"spm": {
+		"main": "js/dist/metaheuristics.js"
+	}
 }
