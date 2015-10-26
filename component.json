@@ -1,11 +1,11 @@
 {
-	"description": "heuristic optimization code bricks for JavaScript",
+	"description": "metaheuristic code bricks for JavaScript",
 	"version": "0.1.2",
-	"repo": "aureooms/js-ho",
+	"repo": "aureooms/js-metaheuristics",
 	"scripts": [
-		"js/dist/ho.js"
+		"js/dist/metaheuristics.js"
 	],
-	"name": "aureooms-js-ho",
+	"name": "aureooms-js-metaheuristics",
 	"license": "AGPL-3.0",
-	"main": "js/dist/ho.js"
+	"main": "js/dist/metaheuristics.js"
 }

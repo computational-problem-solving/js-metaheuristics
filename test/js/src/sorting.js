@@ -80,12 +80,12 @@ function walk_2 ( solution ) {
 
 }
 
-var II = ho.II ;
-var VND = ho.VND ;
-var best = ho.best ;
-var first = ho.first ;
-var first_or_equal = ho.first_or_equal ;
-var first_and_equal = ho.first_and_equal ;
+var II = metaheuristics.II ;
+var VND = metaheuristics.VND ;
+var best = metaheuristics.best ;
+var first = metaheuristics.first ;
+var first_or_equal = metaheuristics.first_or_equal ;
+var first_and_equal = metaheuristics.first_and_equal ;
 
 function init ( n ) {
 

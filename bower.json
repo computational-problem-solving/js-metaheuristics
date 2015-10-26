@@ -1,10 +1,10 @@
 {
-  "name": "aureooms-js-ho",
+  "name": "aureooms-js-metaheuristics",
   "version": "0.1.2",
   "description": "heuristic optimization code bricks for JavaScript",
-  "homepage": "https://aureooms.github.io/js-ho",
+  "homepage": "https://aureooms.github.io/js-metaheuristics",
   "license": "AGPL-3.0",
-  "main": "js/dist/ho.js",
+  "main": "js/dist/metaheuristics.js",
   "ignore": [
     "js/index.js",
     "js/src",

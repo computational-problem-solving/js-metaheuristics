@@ -677,10 +677,10 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 	if (typeof exports === "object") {
 		definition(exports);
 	} else if (typeof define === "function" && define.amd) {
-		define("aureooms-js-ho", [], function () {
+		define("aureooms-js-metaheuristics", [], function () {
 			return definition({});
 		});
 	} else if (typeof window === "object" && typeof window.document === "object") {
-		definition(window["ho"] = {});
-	} else console.error("unable to detect type of module to define for aureooms-js-ho");
+		definition(window["metaheuristics"] = {});
+	} else console.error("unable to detect type of module to define for aureooms-js-metaheuristics");
 })();

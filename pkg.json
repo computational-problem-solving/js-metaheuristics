@@ -1,10 +1,10 @@
 {
-	"name" : "ho",
+	"name" : "metaheuristics",
 	"code" : {
 		"main" : [
 			"js",
 			"dist",
-			"ho.js"
+			"metaheuristics.js"
 		],
 		"test" : [
 			"test",
