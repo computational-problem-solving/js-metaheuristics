@@ -1,9 +1,9 @@
 
 /**
- * Iterated greedy
+ * Iterated Greedy
  */
 
-const ig = function* ( [ solution , best ] , localsearch , alter , pivoting , walk , evaluate ) {
+const IG = function* ( [ solution , best ] , localsearch , alter , pivoting , walk , evaluate ) {
 
 	[ solution , best ] = localsearch( [ solution , best ] ) ;
 
@@ -26,4 +26,4 @@ const ig = function* ( [ solution , best ] , localsearch , alter , pivoting , wa
 
 } ;
 
-exports.ig = ig ;
+exports.IG = IG ;

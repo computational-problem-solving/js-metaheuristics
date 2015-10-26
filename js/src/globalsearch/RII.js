@@ -1,9 +1,9 @@
 
 /**
- * Randomized iterative Improvement
+ * Randomized Iterative Improvement
  */
 
-const rii = function* ( [ solution , best ] , pivote , pivoting , random , walk , apply , evaluate ) {
+const RII = function* ( [ solution , best ] , pivote , pivoting , random , walk , apply , evaluate ) {
 
 	while ( true ) {
 
@@ -34,4 +34,4 @@ const rii = function* ( [ solution , best ] , pivote , pivoting , random , walk 
 
 } ;
 
-exports.rii = rii;
+exports.RII = RII ;

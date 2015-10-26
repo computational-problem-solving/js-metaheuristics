@@ -8,57 +8,366 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 
 	var definition = function definition(exports, undefined) {
 
-		/* js/src/ig */
-		/* js/src/ig/ig.js */
+		/* js/src/globalsearch */
+		/* js/src/globalsearch/IG.js */
 
-		var __ig__ = function __ig__(localsearch, alter, pivoting, delta) {
+		/**
+   * Iterated Greedy
+   */
 
-			var ig = function ig(solution) {
+		var IG = regeneratorRuntime.mark(function IG(_ref, localsearch, alter, pivoting, walk, evaluate) {
+			var _ref2 = _slicedToArray(_ref, 2);
 
-				var candidate, tmp, d;
+			var solution = _ref2[0];
+			var best = _ref2[1];
 
-				solution = localsearch(solution);
-				candidate = solution;
+			var _localsearch, _localsearch2, _localsearch3, _localsearch32, _candidate, fitness;
 
-				while (!end()) {
+			return regeneratorRuntime.wrap(function IG$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						_localsearch = localsearch([solution, best]);
+						_localsearch2 = _slicedToArray(_localsearch, 2);
+						solution = _localsearch2[0];
+						best = _localsearch2[1];
 
-					tmp = alter(candidate);
-					tmp = localsearch(tmp);
+						candidate = solution;
 
-					d = delta(tmp, candidate);
-					if (d <= 0 || t > 0 && accept(d, t)) {
-						candidate = tmp;
-
-						d = delta(candidate, solution);
-						if (d < 0) {
-							solution = candidate;
+					case 5:
+						if (!true) {
+							context$3$0.next = 15;
+							break;
 						}
-					}
+
+						_localsearch3 = localsearch(alter([solution, best]));
+						_localsearch32 = _slicedToArray(_localsearch3, 2);
+						_candidate = _localsearch32[0];
+						fitness = _localsearch32[1];
+
+						if (fitness >= best || accept(fitness, best)) {
+
+							solution = _candidate;
+							best = fitness;
+						}
+
+						context$3$0.next = 13;
+						return [solution, best];
+
+					case 13:
+						context$3$0.next = 5;
+						break;
+
+					case 15:
+					case "end":
+						return context$3$0.stop();
 				}
+			}, IG, this);
+		});
 
-				return solution;
-			};
+		exports.IG = IG;
 
-			return ig;
-		};
+		/* js/src/globalsearch/PII.js */
 
-		exports.__ig__ = __ig__;
-		/* js/src/local */
-		/* js/src/local/ii.js */
+		/**
+   * Probabilistic Iterative Improvement
+   */
+
+		var PII = regeneratorRuntime.mark(function PII(_ref3, random, accept, evaluate, apply) {
+			var _ref32 = _slicedToArray(_ref3, 2);
+
+			var solution = _ref32[0];
+			var best = _ref32[1];
+			var mutation, fitness;
+			return regeneratorRuntime.wrap(function PII$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						if (!true) {
+							context$3$0.next = 8;
+							break;
+						}
+
+						mutation = random(solution);
+						fitness = evaluate(solution, mutation);
+
+						if (fitness >= best || accept(fitness, best)) {
+
+							apply(solution, mutation);
+							best = fitness;
+						}
+
+						context$3$0.next = 6;
+						return [solution, best];
+
+					case 6:
+						context$3$0.next = 0;
+						break;
+
+					case 8:
+					case "end":
+						return context$3$0.stop();
+				}
+			}, PII, this);
+		});
+
+		exports.PII = PII;
+
+		/* js/src/globalsearch/RII.js */
+
+		/**
+   * Randomized Iterative Improvement
+   */
+
+		var RII = regeneratorRuntime.mark(function RII(_ref4, pivote, pivoting, random, walk, apply, evaluate) {
+			var _ref42 = _slicedToArray(_ref4, 2);
+
+			var solution = _ref42[0];
+			var best = _ref42[1];
+
+			var _pivoting, _pivoting2, mutation, fitness;
+
+			return regeneratorRuntime.wrap(function RII$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						if (!true) {
+							context$3$0.next = 6;
+							break;
+						}
+
+						if (pivote()) {
+							_pivoting = pivoting([solution, best], walk, evaluate);
+							_pivoting2 = _slicedToArray(_pivoting, 2);
+							mutation = _pivoting2[0];
+							fitness = _pivoting2[1];
+
+							if (mutation !== null) {
+								apply(solution, mutation);
+								best = fitness;
+							}
+						} else {
+							mutation = random(candidate);
+
+							best = evaluate(solution, mutation);
+
+							apply(solution, mutation);
+						}
+
+						context$3$0.next = 4;
+						return [solution, best];
+
+					case 4:
+						context$3$0.next = 0;
+						break;
+
+					case 6:
+					case "end":
+						return context$3$0.stop();
+				}
+			}, RII, this);
+		});
+
+		exports.RII = RII;
+
+		/* js/src/globalsearch/SA.js */
+
+		/**
+   * Simulated Annealing
+   */
+
+		var SA = regeneratorRuntime.mark(function SA(_ref5, pivoting, walk, evaluate, accept, apply, improvement, temperature, cooldown) {
+			var _ref52 = _slicedToArray(_ref5, 2);
+
+			var solution = _ref52[0];
+			var best = _ref52[1];
+
+			var t, candidate, current, _pivoting3, _pivoting32, mutation, fitness;
+
+			return regeneratorRuntime.wrap(function SA$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						t = temperature;
+						candidate = solution;
+						current = best;
+
+					case 3:
+						if (!true) {
+							context$3$0.next = 14;
+							break;
+						}
+
+						_pivoting3 = pivoting([candidate, current], walk, evaluate);
+						_pivoting32 = _slicedToArray(_pivoting3, 2);
+						mutation = _pivoting32[0];
+						fitness = _pivoting32[1];
+
+						if (fitness >= current || accept(fitness, current, t)) {
+
+							current = fitness;
+							apply(candidate, mutation);
+
+							if (fitness > best) {
+
+								best = fitness;
+								improvement(candidate);
+							}
+						}
+
+						context$3$0.next = 11;
+						return [candidate, current];
+
+					case 11:
+
+						t = cooldown(t);
+
+						context$3$0.next = 3;
+						break;
+
+					case 14:
+					case "end":
+						return context$3$0.stop();
+				}
+			}, SA, this);
+		});
+
+		exports.SA = SA;
+
+		/* js/src/globalsearch/TS.js */
+
+		/**
+   * Tabu Search
+   */
+
+		var TS = regeneratorRuntime.mark(function TS(_ref6, tabu_is, tabu_set, walk, evaluate, apply) {
+			var _ref62 = _slicedToArray(_ref6, 2);
+
+			var solution = _ref62[0];
+			var best = _ref62[1];
+
+			var _candidate2, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, mutation, fitness;
+
+			return regeneratorRuntime.wrap(function TS$(context$3$0) {
+				while (1) switch (context$3$0.prev = context$3$0.next) {
+					case 0:
+						if (!true) {
+							context$3$0.next = 38;
+							break;
+						}
+
+						_candidate2 = null;
+						_iteratorNormalCompletion = true;
+						_didIteratorError = false;
+						_iteratorError = undefined;
+						context$3$0.prev = 5;
+						_iterator = walk(solution)[Symbol.iterator]();
+
+					case 7:
+						if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+							context$3$0.next = 16;
+							break;
+						}
+
+						mutation = _step.value;
+
+						if (!tabu_is(solution, mutation)) {
+							context$3$0.next = 11;
+							break;
+						}
+
+						return context$3$0.abrupt("continue", 13);
+
+					case 11:
+						fitness = evaluate(solution, mutation);
+
+						if (fitness > best) {
+
+							best = fitness;
+							_candidate2 = mutation;
+						}
+
+					case 13:
+						_iteratorNormalCompletion = true;
+						context$3$0.next = 7;
+						break;
+
+					case 16:
+						context$3$0.next = 22;
+						break;
+
+					case 18:
+						context$3$0.prev = 18;
+						context$3$0.t0 = context$3$0["catch"](5);
+						_didIteratorError = true;
+						_iteratorError = context$3$0.t0;
+
+					case 22:
+						context$3$0.prev = 22;
+						context$3$0.prev = 23;
+
+						if (!_iteratorNormalCompletion && _iterator["return"]) {
+							_iterator["return"]();
+						}
+
+					case 25:
+						context$3$0.prev = 25;
+
+						if (!_didIteratorError) {
+							context$3$0.next = 28;
+							break;
+						}
+
+						throw _iteratorError;
+
+					case 28:
+						return context$3$0.finish(25);
+
+					case 29:
+						return context$3$0.finish(22);
+
+					case 30:
+						if (!(_candidate2 === null)) {
+							context$3$0.next = 32;
+							break;
+						}
+
+						return context$3$0.abrupt("break", 38);
+
+					case 32:
+
+						tabu_set(solution, _candidate2);
+
+						apply(solution, _candidate2);
+
+						context$3$0.next = 36;
+						return [solution, best];
+
+					case 36:
+						context$3$0.next = 0;
+						break;
+
+					case 38:
+					case "end":
+						return context$3$0.stop();
+				}
+			}, TS, this, [[5, 18, 22, 30], [23,, 25, 29]]);
+		});
+
+		exports.TS = TS;
+
+		/* js/src/localsearch */
+		/* js/src/localsearch/II.js */
 
 		/**
    * Iterative Improvement
    */
 
-		var ii = regeneratorRuntime.mark(function ii(_ref, pivoting, walk, evaluate, apply) {
-			var _ref2 = _slicedToArray(_ref, 2);
+		var II = regeneratorRuntime.mark(function II(_ref7, pivoting, walk, evaluate, apply) {
+			var _ref72 = _slicedToArray(_ref7, 2);
 
-			var solution = _ref2[0];
-			var current = _ref2[1];
+			var solution = _ref72[0];
+			var current = _ref72[1];
 
-			var _pivoting, _pivoting2, mutation, fitness;
+			var _pivoting4, _pivoting42, mutation, fitness;
 
-			return regeneratorRuntime.wrap(function ii$(context$3$0) {
+			return regeneratorRuntime.wrap(function II$(context$3$0) {
 				while (1) switch (context$3$0.prev = context$3$0.next) {
 					case 0:
 						if (!true) {
@@ -66,10 +375,10 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 							break;
 						}
 
-						_pivoting = pivoting([solution, current], walk, evaluate);
-						_pivoting2 = _slicedToArray(_pivoting, 2);
-						mutation = _pivoting2[0];
-						fitness = _pivoting2[1];
+						_pivoting4 = pivoting([solution, current], walk, evaluate);
+						_pivoting42 = _slicedToArray(_pivoting4, 2);
+						mutation = _pivoting42[0];
+						fitness = _pivoting42[1];
 
 						if (!(mutation === null)) {
 							context$3$0.next = 7;
@@ -96,40 +405,45 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 					case "end":
 						return context$3$0.stop();
 				}
-			}, ii, this);
+			}, II, this);
 		});
 
-		exports.ii = ii;
+		exports.II = II;
 
-		/* js/src/local/vnd.js */
-		var vnd = regeneratorRuntime.mark(function vnd(_ref3, N, neighborhoods) {
-			var _ref32 = _slicedToArray(_ref3, 2);
+		/* js/src/localsearch/VND.js */
 
-			var solution = _ref32[0];
-			var best = _ref32[1];
+		/**
+   * Variable Neighborhood Descent
+   */
+
+		var VND = regeneratorRuntime.mark(function VND(_ref8, N, neighborhoods) {
+			var _ref82 = _slicedToArray(_ref8, 2);
+
+			var solution = _ref82[0];
+			var best = _ref82[1];
 
 			var k, n, _n$pivoting, _n$pivoting2, mutation, fitness, _n$pivoting3, _n$pivoting32;
 
-			return regeneratorRuntime.wrap(function vnd$(context$3$0) {
+			return regeneratorRuntime.wrap(function VND$(context$3$0) {
 				while (1) switch (context$3$0.prev = context$3$0.next) {
 					case 0:
 						k = 0;
 
 					case 1:
 						if (!(k < N)) {
-							context$3$0.next = 22;
+							context$3$0.next = 23;
 							break;
 						}
 
 						n = neighborhoods[k];
-						_n$pivoting = n.pivoting(solution, n.walk, n.evaluate);
+						_n$pivoting = n.pivoting([solution, best], n.walk, n.evaluate);
 						_n$pivoting2 = _slicedToArray(_n$pivoting, 2);
 						mutation = _n$pivoting2[0];
 						fitness = _n$pivoting2[1];
 
 					case 7:
 						if (!(fitness > best)) {
-							context$3$0.next = 19;
+							context$3$0.next = 20;
 							break;
 						}
 
@@ -142,131 +456,60 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 					case 12:
 
 						k = 0;
-						_n$pivoting3 = n.pivoting(solution, n.walk, n.evaluate);
+						n = neighborhoods[k];
+						_n$pivoting3 = n.pivoting([solution, best], n.walk, n.evaluate);
 						_n$pivoting32 = _slicedToArray(_n$pivoting3, 2);
 						mutation = _n$pivoting32[0];
 						fitness = _n$pivoting32[1];
 						context$3$0.next = 7;
 						break;
 
-					case 19:
+					case 20:
 
 						k += 1;
 
 						context$3$0.next = 1;
 						break;
 
-					case 22:
+					case 23:
 					case "end":
 						return context$3$0.stop();
 				}
-			}, vnd, this);
+			}, VND, this);
 		});
 
-		exports.vnd = vnd;
+		exports.VND = VND;
 
-		/* js/src/pii */
-		/* js/src/pii/pii.js */
-
-		/**
-   * Probabilistic iterative Improvement
-   */
-
-		var __pii__ = function __pii__(end, random, delta, accept) {
-
-			var pii = function pii(solution) {
-				var candidate, tmp, d;
-
-				candidate = solution;
-
-				while (!end()) {
-
-					tmp = random(candidate);
-
-					d = delta(tmp, candidate);
-
-					if (d <= 0 || accept(d)) {
-						candidate = tmp;
-
-						d = delta(candidate, solution);
-
-						if (d < 0) {
-							solution = candidate;
-						}
-					}
-				}
-
-				return solution;
-			};
-
-			return pii;
-		};
-
-		exports.__pii__ = __pii__;
 		/* js/src/pivoting */
 		/* js/src/pivoting/best.js */
-		var best = function best(_ref4, walk, evaluate) {
-			var _ref42 = _slicedToArray(_ref4, 2);
+		/**
+   * Returns the mutation that improves fitness the most.
+   * If this mutation does not exist, returns null.
+   */
 
-			var solution = _ref42[0];
-			var _best = _ref42[1];
+		var best = function best(_ref9, walk, evaluate) {
+			var _ref92 = _slicedToArray(_ref9, 2);
+
+			var solution = _ref92[0];
+			var _best = _ref92[1];
 
 			var candidate = null;
 
-			var _iteratorNormalCompletion = true;
-			var _didIteratorError = false;
-			var _iteratorError = undefined;
-
-			try {
-				for (var _iterator = walk(solution)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-					var mutation = _step.value;
-
-					var fitness = evaluate(solution, mutation);
-
-					if (fitness >= _best) {
-
-						candidate = mutation;
-						_best = fitness;
-					}
-				}
-			} catch (err) {
-				_didIteratorError = true;
-				_iteratorError = err;
-			} finally {
-				try {
-					if (!_iteratorNormalCompletion && _iterator["return"]) {
-						_iterator["return"]();
-					}
-				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
-					}
-				}
-			}
-
-			return [candidate, _best];
-		};
-
-		exports.best = best;
-
-		/* js/src/pivoting/first.js */
-		var first = function first(_ref5, walk, evaluate) {
-			var _ref52 = _slicedToArray(_ref5, 2);
-
-			var solution = _ref52[0];
-			var current = _ref52[1];
 			var _iteratorNormalCompletion2 = true;
 			var _didIteratorError2 = false;
 			var _iteratorError2 = undefined;
 
 			try {
-
 				for (var _iterator2 = walk(solution)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 					var mutation = _step2.value;
 
 					var fitness = evaluate(solution, mutation);
 
-					if (fitness > current) return [mutation, fitness];
+					if (fitness > _best) {
+
+						candidate = mutation;
+						_best = fitness;
+					}
 				}
 			} catch (err) {
 				_didIteratorError2 = true;
@@ -283,17 +526,22 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 				}
 			}
 
-			return [null, current];
+			return [candidate, _best];
 		};
 
-		exports.first = first;
+		exports.best = best;
 
-		/* js/src/pivoting/firstandeq.js */
-		var firstandeq = function firstandeq(_ref6, walk, evaluate) {
-			var _ref62 = _slicedToArray(_ref6, 2);
+		/* js/src/pivoting/first.js */
+		/**
+   * Returns the first mutation that improves fitness.
+   * If this mutation does not exist, returns null.
+   */
 
-			var solution = _ref62[0];
-			var current = _ref62[1];
+		var first = function first(_ref10, walk, evaluate) {
+			var _ref102 = _slicedToArray(_ref10, 2);
+
+			var solution = _ref102[0];
+			var current = _ref102[1];
 			var _iteratorNormalCompletion3 = true;
 			var _didIteratorError3 = false;
 			var _iteratorError3 = undefined;
@@ -305,7 +553,7 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 
 					var fitness = evaluate(solution, mutation);
 
-					if (fitness >= current) return [mutation, fitness];
+					if (fitness > current) return [mutation, fitness];
 				}
 			} catch (err) {
 				_didIteratorError3 = true;
@@ -325,34 +573,31 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 			return [null, current];
 		};
 
-		exports.firstandeq = firstandeq;
+		exports.first = first;
 
-		/* js/src/pivoting/firstoreq.js */
-		var firstoreq = function firstoreq(_ref7, walk, evaluate) {
-			var _ref72 = _slicedToArray(_ref7, 2);
+		/* js/src/pivoting/first_and_equal.js */
+		/**
+   * Returns the first mutation that improves fitness or keeps the same fitness
+   * value. If this mutation does not exist, returns null.
+   */
 
-			var solution = _ref72[0];
-			var best = _ref72[1];
+		var first_and_equal = function first_and_equal(_ref11, walk, evaluate) {
+			var _ref112 = _slicedToArray(_ref11, 2);
 
-			var candidate = null;
-
+			var solution = _ref112[0];
+			var current = _ref112[1];
 			var _iteratorNormalCompletion4 = true;
 			var _didIteratorError4 = false;
 			var _iteratorError4 = undefined;
 
 			try {
+
 				for (var _iterator4 = walk(solution)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
 					var mutation = _step4.value;
 
 					var fitness = evaluate(solution, mutation);
 
-					if (fitness > best) return [mutation, fitness];
-
-					if (fitness === best) {
-
-						candidate = mutation;
-						best = fitness;
-					}
+					if (fitness >= current) return [mutation, fitness];
 				}
 			} catch (err) {
 				_didIteratorError4 = true;
@@ -369,89 +614,64 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 				}
 			}
 
+			return [null, current];
+		};
+
+		exports.first_and_equal = first_and_equal;
+
+		/* js/src/pivoting/first_or_equal.js */
+		/**
+   * Returns the first mutation that improves the fitness value. If such a
+   * mutation does not exist, returns the last mutation that keeps fitness the
+   * same, or null.
+   */
+
+		var first_or_equal = function first_or_equal(_ref12, walk, evaluate) {
+			var _ref122 = _slicedToArray(_ref12, 2);
+
+			var solution = _ref122[0];
+			var best = _ref122[1];
+
+			var candidate = null;
+
+			var _iteratorNormalCompletion5 = true;
+			var _didIteratorError5 = false;
+			var _iteratorError5 = undefined;
+
+			try {
+				for (var _iterator5 = walk(solution)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+					var mutation = _step5.value;
+
+					var fitness = evaluate(solution, mutation);
+
+					if (fitness > best) return [mutation, fitness];
+
+					if (fitness === best) {
+
+						candidate = mutation;
+						best = fitness;
+					}
+				}
+			} catch (err) {
+				_didIteratorError5 = true;
+				_iteratorError5 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion5 && _iterator5["return"]) {
+						_iterator5["return"]();
+					}
+				} finally {
+					if (_didIteratorError5) {
+						throw _iteratorError5;
+					}
+				}
+			}
+
 			return [candidate, best];
 		};
 
-		exports.firstoreq = firstoreq;
+		exports.first_or_equal = first_or_equal;
 
-		/* js/src/rii */
-		/* js/src/rii/rii.js */
-
-		/**
-   * Randomized iterative Improvement
-   */
-
-		var __rii__ = function __rii__(end, pivote, pivoting, random, delta) {
-
-			var rii = function rii(solution) {
-				var candidate, d;
-
-				candidate = solution;
-
-				while (!end()) {
-
-					if (pivote()) {
-						candidate = pivoting(candidate);
-					} else {
-						candidate = random(candidate);
-					}
-
-					d = delta(candidate, solution);
-
-					if (d < 0) {
-						solution = candidate;
-					}
-				}
-
-				return solution;
-			};
-
-			return rii;
-		};
-
-		exports.__rii__ = __rii__;
-		/* js/src/sa */
-		/* js/src/sa/sa.js */
-
-		/**
-   * Simulated Annealing
-   */
-
-		var __sa__ = function __sa__(end, pivoting, delta, accept, improvement, temperature, alpha, cooldown) {
-
-			var sa = function sa(solution) {
-				var tmp, candidate, d, t;
-
-				t = temperature;
-				candidate = solution;
-
-				while (!end()) {
-
-					tmp = pivoting(candidate);
-
-					d = delta(tmp, candidate);
-
-					if (d <= 0 || t > 0 && accept(d, t)) {
-						candidate = tmp;
-
-						d = delta(candidate, solution);
-
-						if (d < 0) {
-							solution = candidate;
-							improvement(solution);
-						}
-					}
-
-					if (cooldown()) {
-						t *= alpha;
-					}
-				}
-			};
-
-			return sa;
-		};
-
-		exports.__sa__ = __sa__;
 		return exports;
 	};
 	if (typeof exports === "object") {

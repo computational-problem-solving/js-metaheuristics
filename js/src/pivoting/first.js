@@ -1,3 +1,8 @@
+/**
+ * Returns the first mutation that improves fitness.
+ * If this mutation does not exist, returns null.
+ */
+
 const first = function ( [ solution , current ] , walk , evaluate ) {
 
 	for ( const mutation of walk( solution ) ) {

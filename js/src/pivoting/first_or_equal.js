@@ -1,4 +1,10 @@
-const firstoreq = function ( [ solution , best ] , walk , evaluate ) {
+/**
+ * Returns the first mutation that improves the fitness value. If such a
+ * mutation does not exist, returns the last mutation that keeps fitness the
+ * same, or null.
+ */
+
+const first_or_equal = function ( [ solution , best ] , walk , evaluate ) {
 
 	let candidate = null ;
 
@@ -21,4 +27,4 @@ const firstoreq = function ( [ solution , best ] , walk , evaluate ) {
 
 } ;
 
-exports.firstoreq = firstoreq ;
+exports.first_or_equal = first_or_equal ;

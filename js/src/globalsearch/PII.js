@@ -1,9 +1,9 @@
 
 /**
- * Probabilistic iterative Improvement
+ * Probabilistic Iterative Improvement
  */
 
-const pii = function* ( [ solution , best ] , random , accept , evaluate , apply ) {
+const PII = function* ( [ solution , best ] , random , accept , evaluate , apply ) {
 
 	while ( true ) {
 
@@ -24,4 +24,4 @@ const pii = function* ( [ solution , best ] , random , accept , evaluate , apply
 
 } ;
 
-exports.pii = pii;
+exports.PII = PII ;
