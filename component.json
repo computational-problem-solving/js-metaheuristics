@@ -1,6 +1,6 @@
 {
 	"description": "metaheuristic code bricks for JavaScript",
-	"version": "0.1.2",
+	"version": "1.0.0",
 	"repo": "aureooms/js-metaheuristics",
 	"scripts": [
 		"js/dist/metaheuristics.js"
