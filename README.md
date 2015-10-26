@@ -3,6 +3,10 @@
 
 Metaheuristic code bricks for JavaScript.
 
+```js
+for ( const [ candidate , fitness ] of localsearch( [ solution , best ] ) ) ... ;
+```
+
 [![NPM license](http://img.shields.io/npm/l/aureooms-js-metaheuristics.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-metaheuristics/master/LICENSE)
 [![NPM version](http://img.shields.io/npm/v/aureooms-js-metaheuristics.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-metaheuristics)
 [![Bower version](http://img.shields.io/bower/v/aureooms-js-metaheuristics.svg?style=flat)](http://bower.io/search/?q=aureooms-js-metaheuristics)
@@ -152,7 +156,7 @@ let [ candidate , fitness ] = max( attr( increasing , 1 ) , localsearch( [ solut
 
 #### Non-halting
 
-For non-halting methods you can also only restrict your search to
+For non-halting methods you can restrict your search to
 the first `n` candidates
 
 ```js
