@@ -1,6 +1,6 @@
 {
 	"name": "aureooms-js-metaheuristics",
-	"description": "heuristic optimization code bricks for JavaScript",
+	"description": "metaheuristic code bricks for JavaScript",
 	"version": "1.0.1",
 	"main": "js/dist/metaheuristics.js",
 	"dependencies": {},

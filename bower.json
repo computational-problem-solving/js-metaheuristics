@@ -1,7 +1,7 @@
 {
 	"name": "aureooms-js-metaheuristics",
 	"version": "1.0.1",
-	"description": "heuristic optimization code bricks for JavaScript",
+	"description": "metaheuristic code bricks for JavaScript",
 	"homepage": "https://aureooms.github.io/js-metaheuristics",
 	"license": "AGPL-3.0",
 	"main": "js/dist/metaheuristics.js",
