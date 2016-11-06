@@ -4,7 +4,7 @@
  * same, or null.
  */
 
-const first_or_equal = function ( [ solution , best ] , walk , evaluate ) {
+export function first_or_equal ( [ solution , best ] , walk , evaluate ) {
 
 	let candidate = null ;
 
@@ -25,6 +25,4 @@ const first_or_equal = function ( [ solution , best ] , walk , evaluate ) {
 
 	return [ candidate , best ] ;
 
-} ;
-
-exports.first_or_equal = first_or_equal ;
+}

@@ -3,7 +3,7 @@
  * Iterated Greedy
  */
 
-const IG = function* ( [ solution , best ] , localsearch , alter , pivoting , walk , evaluate ) {
+export function* IG ( [ solution , best ] , localsearch , alter , pivoting , walk , evaluate ) {
 
 	[ solution , best ] = localsearch( [ solution , best ] ) ;
 
@@ -24,6 +24,4 @@ const IG = function* ( [ solution , best ] , localsearch , alter , pivoting , wa
 
 	}
 
-} ;
-
-exports.IG = IG ;
+}

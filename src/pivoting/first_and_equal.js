@@ -3,7 +3,7 @@
  * value. If this mutation does not exist, returns null.
  */
 
-const first_and_equal = function ( [ solution , current ] , walk , evaluate ) {
+export function first_and_equal ( [ solution , current ] , walk , evaluate ) {
 
 	for ( const mutation of walk( solution ) ) {
 
@@ -15,7 +15,4 @@ const first_and_equal = function ( [ solution , current ] , walk , evaluate ) {
 
 	return [ null , current ] ;
 
-} ;
-
-
-exports.first_and_equal = first_and_equal ;
+}

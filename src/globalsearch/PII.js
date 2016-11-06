@@ -3,7 +3,7 @@
  * Probabilistic Iterative Improvement
  */
 
-const PII = function* ( [ solution , best ] , random , accept , evaluate , apply ) {
+export function* PII ( [ solution , best ] , random , accept , evaluate , apply ) {
 
 	while ( true ) {
 
@@ -22,6 +22,4 @@ const PII = function* ( [ solution , best ] , random , accept , evaluate , apply
 
 	}
 
-} ;
-
-exports.PII = PII ;
+}

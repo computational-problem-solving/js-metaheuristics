@@ -3,7 +3,7 @@
  * Variable Neighborhood Descent
  */
 
-const VND = function* ( [ solution , best ] , N , neighborhoods ) {
+export function* VND ( [ solution , best ] , N , neighborhoods ) {
 
 	let k = 0 ;
 
@@ -30,6 +30,4 @@ const VND = function* ( [ solution , best ] , N , neighborhoods ) {
 
 	}
 
-} ;
-
-exports.VND = VND ;
+}

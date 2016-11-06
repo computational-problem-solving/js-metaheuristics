@@ -4,19 +4,12 @@
  * using different kinds of metaheuristics.
  */
 
-var itertools = require( 'aureooms-js-itertools' ) ;
-var head = itertools.head ;
-var max = itertools.max ;
-var frame = itertools.frame ;
-var range = itertools.range ;
-var list = itertools.list ;
+import { head , max , frame , range , list } from 'aureooms-js-itertools' ;
+import { attr , increasing } from 'aureooms-js-compare' ;
+import array from 'aureooms-js-array' ;
+import random from 'aureooms-js-random' ;
 
-var compare = require( 'aureooms-js-compare' ) ;
-var increasing = compare.increasing ;
-var attr = compare.attr ;
-
-var array = require( 'aureooms-js-array' ) ;
-var random = require( 'aureooms-js-random' ) ;
+import { II, VND, best, first, first_or_equal, first_and_equal } from '../../src' ;
 
 function count_inversions ( solution ) {
 
@@ -80,13 +73,6 @@ function walk_2 ( solution ) {
 
 }
 
-var II = metaheuristics.II ;
-var VND = metaheuristics.VND ;
-var best = metaheuristics.best ;
-var first = metaheuristics.first ;
-var first_or_equal = metaheuristics.first_or_equal ;
-var first_and_equal = metaheuristics.first_and_equal ;
-
 function init ( n ) {
 
 	var solution = array.alloc( n ) ;
@@ -102,7 +88,7 @@ function init ( n ) {
 
 var test_method = function ( name , method ) {
 
-	test( 'sorting : ' + name , function ( assert ) {
+	test( 'sorting : ' + name , t => {
 
 		var n = 20 ;
 
@@ -110,8 +96,8 @@ var test_method = function ( name , method ) {
 
 		var output = max( attr( increasing , 1 ) , candidates ) ;
 
-		assert.equal( output[1] , 0 , 'fitness is 0' ) ;
-		assert.deepEqual( output[0] , list( range( n ) ) , 'solution is sorted' ) ;
+		t.is( output[1] , 0 , 'fitness is 0' ) ;
+		t.deepEqual( output[0] , list( range( n ) ) , 'solution is sorted' ) ;
 
 	} ) ;
 

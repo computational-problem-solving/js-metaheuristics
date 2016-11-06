@@ -3,7 +3,7 @@
  * Simulated Annealing
  */
 
-const SA = function* ( [ solution , best ] , pivoting , walk , evaluate , accept , apply , improvement , temperature , cooldown ) {
+export function* SA ( [ solution , best ] , pivoting , walk , evaluate , accept , apply , improvement , temperature , cooldown ) {
 
 	let t = temperature ;
 	let candidate = solution ;
@@ -33,6 +33,4 @@ const SA = function* ( [ solution , best ] , pivoting , walk , evaluate , accept
 
 	}
 
-} ;
-
-exports.SA = SA ;
+}

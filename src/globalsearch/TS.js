@@ -3,7 +3,7 @@
  * Tabu Search
  */
 
-const TS = function* ( [ solution , best ] , tabu_is , tabu_set , walk , evaluate , apply ) {
+export function* TS ( [ solution , best ] , tabu_is , tabu_set , walk , evaluate , apply ) {
 
 	while ( true ) {
 
@@ -34,6 +34,4 @@ const TS = function* ( [ solution , best ] , tabu_is , tabu_set , walk , evaluat
 
 	}
 
-} ;
-
-exports.TS = TS ;
+}

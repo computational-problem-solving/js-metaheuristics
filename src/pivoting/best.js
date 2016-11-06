@@ -3,7 +3,7 @@
  * If this mutation does not exist, returns null.
  */
 
-const best = function ( [ solution , best ] , walk , evaluate ) {
+export function best ( [ solution , best ] , walk , evaluate ) {
 
 	let candidate = null ;
 
@@ -22,6 +22,4 @@ const best = function ( [ solution , best ] , walk , evaluate ) {
 
 	return [ candidate , best ] ;
 
-} ;
-
-exports.best = best ;
+}

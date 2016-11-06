@@ -3,7 +3,7 @@
  * Iterative Improvement
  */
 
-const II = function* ( [ solution , current ] , pivoting , walk , evaluate , apply ) {
+export function* II ( [ solution , current ] , pivoting , walk , evaluate , apply ) {
 
 	while ( true ) {
 
@@ -19,6 +19,4 @@ const II = function* ( [ solution , current ] , pivoting , walk , evaluate , app
 
 	}
 
-} ;
-
-exports.II = II ;
+}
