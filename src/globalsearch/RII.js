@@ -1,6 +1,8 @@
 
 /**
  * Randomized Iterative Improvement
+ *
+ * @param first
  */
 
 export function* RII ( [ solution , best ] , pivote , pivoting , random , walk , apply , evaluate ) {

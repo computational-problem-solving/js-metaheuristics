@@ -2,6 +2,8 @@
  * Returns the first mutation that improves the fitness value. If such a
  * mutation does not exist, returns the last mutation that keeps fitness the
  * same, or null.
+ *
+ * @param first
  */
 
 export function first_or_equal ( [ solution , best ] , walk , evaluate ) {

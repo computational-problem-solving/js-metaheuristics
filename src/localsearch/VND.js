@@ -1,6 +1,8 @@
 
 /**
  * Variable Neighborhood Descent
+ *
+ * @param first
  */
 
 export function* VND ( [ solution , best ] , N , neighborhoods ) {

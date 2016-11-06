@@ -1,6 +1,8 @@
 /**
  * Returns the first mutation that improves fitness or keeps the same fitness
  * value. If this mutation does not exist, returns null.
+ *
+ * @param first
  */
 
 export function first_and_equal ( [ solution , current ] , walk , evaluate ) {

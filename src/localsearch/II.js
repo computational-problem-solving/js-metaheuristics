@@ -1,6 +1,8 @@
 
 /**
  * Iterative Improvement
+ *
+ * @param first
  */
 
 export function* II ( [ solution , current ] , pivoting , walk , evaluate , apply ) {

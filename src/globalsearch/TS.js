@@ -1,6 +1,8 @@
 
 /**
  * Tabu Search
+ *
+ * @param first
  */
 
 export function* TS ( [ solution , best ] , tabu_is , tabu_set , walk , evaluate , apply ) {

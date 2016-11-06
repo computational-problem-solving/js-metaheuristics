@@ -1,6 +1,8 @@
 
 /**
  * Iterated Greedy
+ *
+ * @param first
  */
 
 export function* IG ( [ solution , best ] , localsearch , alter , pivoting , walk , evaluate ) {

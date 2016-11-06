@@ -1,6 +1,8 @@
 
 /**
  * Simulated Annealing
+ *
+ * @param first
  */
 
 export function* SA ( [ solution , best ] , pivoting , walk , evaluate , accept , apply , improvement , temperature , cooldown ) {

@@ -1,6 +1,8 @@
 
 /**
  * Probabilistic Iterative Improvement
+ *
+ * @param first
  */
 
 export function* PII ( [ solution , best ] , random , accept , evaluate , apply ) {

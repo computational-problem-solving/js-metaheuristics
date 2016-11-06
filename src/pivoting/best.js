@@ -1,6 +1,8 @@
 /**
  * Returns the mutation that improves fitness the most.
  * If this mutation does not exist, returns null.
+ *
+ * @param first
  */
 
 export function best ( [ solution , best ] , walk , evaluate ) {
