@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">aureooms/js-metaheuristics API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/globalsearch/PII.js | aureooms/js-metaheuristics API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -49,21 +49,36 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="-js-metaheuristics-http-aureooms-github-io-js-metaheuristics-"><a href="http://aureooms.github.io/js-metaheuristics">js-metaheuristics</a></h1>
-<p>Metaheuristic algorithms for JavaScript.</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">for ( const [ candidate , fitness ] of localsearch( [ solution , best ] ) ) ... ;</code>
+<div class="content" data-ice="content"><h1 data-ice="title">src/globalsearch/PII.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+/**
+ * Probabilistic Iterative Improvement
+ *
+ * @param first
+ */
+
+export function* PII ( [ solution , best ] , random , accept , evaluate , apply ) {
+
+	while ( true ) {
+
+		const mutation = random( solution ) ;
+
+		const fitness = evaluate( solution , mutation ) ;
+
+		if ( fitness &gt;= best || accept( fitness , best ) ) {
+
+			apply( solution , mutation ) ;
+			best = fitness ;
+
+		}
+
+		yield [ solution , best ] ;
+
+	}
+
+}
 </code></pre>
-<p><a href="https://raw.githubusercontent.com/aureooms/js-metaheuristics/master/LICENSE"><img src="http://img.shields.io/npm/l/aureooms-js-metaheuristics.svg?style=flat" alt="NPM license"></a>
-<a href="https://www.npmjs.org/package/aureooms-js-metaheuristics"><img src="http://img.shields.io/npm/v/aureooms-js-metaheuristics.svg?style=flat" alt="NPM version"></a>
-<a href="https://travis-ci.org/aureooms/js-metaheuristics"><img src="http://img.shields.io/travis/aureooms/js-metaheuristics.svg?style=flat" alt="Build Status"></a>
-<a href="https://coveralls.io/r/aureooms/js-metaheuristics"><img src="http://img.shields.io/coveralls/aureooms/js-metaheuristics.svg?style=flat" alt="Coverage Status"></a>
-<a href="https://david-dm.org/aureooms/js-metaheuristics#info=dependencies"><img src="http://img.shields.io/david/aureooms/js-metaheuristics.svg?style=flat" alt="Dependencies Status"></a>
-<a href="https://david-dm.org/aureooms/js-metaheuristics#info=devDependencies"><img src="http://img.shields.io/david/dev/aureooms/js-metaheuristics.svg?style=flat" alt="devDependencies Status"></a>
-<a href="https://codeclimate.com/github/aureooms/js-metaheuristics"><img src="http://img.shields.io/codeclimate/github/aureooms/js-metaheuristics.svg?style=flat" alt="Code Climate"></a>
-<a href="https://www.npmjs.org/package/aureooms-js-metaheuristics"><img src="http://img.shields.io/npm/dm/aureooms-js-metaheuristics.svg?style=flat" alt="NPM downloads per month"></a>
-<a href="https://github.com/aureooms/js-metaheuristics/issues"><img src="http://img.shields.io/github/issues/aureooms/js-metaheuristics.svg?style=flat" alt="GitHub issues"></a>
-<a href="https://aureooms.github.io/js-metaheuristics/source.html"><img src="https://aureooms.github.io/js-metaheuristics/badge.svg" alt="Documentation"></a></p>
-</div>
+
 </div>
 
 <footer class="footer">

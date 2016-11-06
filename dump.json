@@ -1,0 +1,1240 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/globalsearch/IG.js",
+    "memberof": null,
+    "longname": "src/globalsearch/IG.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Iterated Greedy\n *\n * @param first\n */\n\nexport function* IG ( [ solution , best ] , localsearch , alter , pivoting , walk , evaluate ) {\n\n\t[ solution , best ] = localsearch( [ solution , best ] ) ;\n\n\tcandidate = solution;\n\n\twhile ( true ) {\n\n\t\tconst [ candidate , fitness ] = localsearch( alter( [ solution , best ] ) ) ;\n\n\t\tif ( fitness >= best || accept( fitness , best ) ) {\n\n\t\t\tsolution = candidate ;\n\t\t\tbest = fitness ;\n\n\t\t}\n\n\t\tyield [ solution , best ] ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IG",
+    "memberof": "src/globalsearch/IG.js",
+    "longname": "src/globalsearch/IG.js~IG",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/globalsearch/IG.js",
+    "importStyle": "{IG}",
+    "description": "Iterated Greedy",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/globalsearch/PII.js",
+    "memberof": null,
+    "longname": "src/globalsearch/PII.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Probabilistic Iterative Improvement\n *\n * @param first\n */\n\nexport function* PII ( [ solution , best ] , random , accept , evaluate , apply ) {\n\n\twhile ( true ) {\n\n\t\tconst mutation = random( solution ) ;\n\n\t\tconst fitness = evaluate( solution , mutation ) ;\n\n\t\tif ( fitness >= best || accept( fitness , best ) ) {\n\n\t\t\tapply( solution , mutation ) ;\n\t\t\tbest = fitness ;\n\n\t\t}\n\n\t\tyield [ solution , best ] ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 3,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "PII",
+    "memberof": "src/globalsearch/PII.js",
+    "longname": "src/globalsearch/PII.js~PII",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/globalsearch/PII.js",
+    "importStyle": "{PII}",
+    "description": "Probabilistic Iterative Improvement",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/globalsearch/RII.js",
+    "memberof": null,
+    "longname": "src/globalsearch/RII.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Randomized Iterative Improvement\n *\n * @param first\n */\n\nexport function* RII ( [ solution , best ] , pivote , pivoting , random , walk , apply , evaluate ) {\n\n\twhile ( true ) {\n\n\t\tif ( pivote( ) ) {\n\n\t\t\tconst [ mutation , fitness ] = pivoting( [ solution , best ] , walk , evaluate ) ;\n\n\t\t\tif ( mutation !== null ) {\n\t\t\t\tapply( solution , mutation ) ;\n\t\t\t\tbest = fitness ;\n\t\t\t}\n\n\t\t}\n\n\t\telse {\n\n\t\t\tconst mutation = random( candidate ) ;\n\n\t\t\tbest = evaluate( solution , mutation ) ;\n\n\t\t\tapply( solution , mutation ) ;\n\n\t\t}\n\n\t\tyield [ solution , best ] ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 5,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "RII",
+    "memberof": "src/globalsearch/RII.js",
+    "longname": "src/globalsearch/RII.js~RII",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/globalsearch/RII.js",
+    "importStyle": "{RII}",
+    "description": "Randomized Iterative Improvement",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/globalsearch/SA.js",
+    "memberof": null,
+    "longname": "src/globalsearch/SA.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Simulated Annealing\n *\n * @param first\n */\n\nexport function* SA ( [ solution , best ] , pivoting , walk , evaluate , accept , apply , improvement , temperature , cooldown ) {\n\n\tlet t = temperature ;\n\tlet candidate = solution ;\n\tlet current = best ;\n\n\twhile ( true ) {\n\n\t\tconst [ mutation , fitness ] = pivoting( [ candidate , current ] , walk , evaluate ) ;\n\n\t\tif ( fitness >= current || accept( fitness , current , t ) ) {\n\n\t\t\tcurrent = fitness ;\n\t\t\tapply( candidate , mutation ) ;\n\n\t\t\tif ( fitness > best ) {\n\n\t\t\t\tbest = fitness ;\n\t\t\t\timprovement( candidate ) ;\n\n\t\t\t}\n\n\t\t}\n\n\t\tyield [ candidate , current ] ;\n\n\t\tt = cooldown( t ) ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 7,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "SA",
+    "memberof": "src/globalsearch/SA.js",
+    "longname": "src/globalsearch/SA.js~SA",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/globalsearch/SA.js",
+    "importStyle": "{SA}",
+    "description": "Simulated Annealing",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/globalsearch/TS.js",
+    "memberof": null,
+    "longname": "src/globalsearch/TS.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Tabu Search\n *\n * @param first\n */\n\nexport function* TS ( [ solution , best ] , tabu_is , tabu_set , walk , evaluate , apply ) {\n\n\twhile ( true ) {\n\n\t\tlet candidate = null ;\n\n\t\tfor ( const mutation of walk( solution ) ) {\n\n\t\t\tif ( tabu_is( solution , mutation ) ) continue ;\n\n\t\t\tconst fitness = evaluate( solution , mutation ) ;\n\n\t\t\tif ( fitness > best ) {\n\n\t\t\t\tbest = fitness ;\n\t\t\t\tcandidate = mutation ;\n\n\t\t\t}\n\n\t\t}\n\n\t\tif ( candidate === null ) break ;\n\n\t\ttabu_set( solution , candidate ) ;\n\n\t\tapply( solution , candidate ) ;\n\n\t\tyield [ solution , best ] ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 9,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "TS",
+    "memberof": "src/globalsearch/TS.js",
+    "longname": "src/globalsearch/TS.js~TS",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/globalsearch/TS.js",
+    "importStyle": "{TS}",
+    "description": "Tabu Search",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/globalsearch/index.js",
+    "memberof": null,
+    "longname": "src/globalsearch/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "export * from './IG' ;\nexport * from './PII' ;\nexport * from './RII' ;\nexport * from './SA' ;\nexport * from './TS' ;\n"
+  },
+  {
+    "__docId__": 11,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/index.js",
+    "memberof": null,
+    "longname": "src/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "export * from './globalsearch' ;\nexport * from './localsearch' ;\nexport * from './pivoting' ;\n"
+  },
+  {
+    "__docId__": 12,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/localsearch/II.js",
+    "memberof": null,
+    "longname": "src/localsearch/II.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Iterative Improvement\n *\n * @param first\n */\n\nexport function* II ( [ solution , current ] , pivoting , walk , evaluate , apply ) {\n\n\twhile ( true ) {\n\n\t\tconst [ mutation , fitness ] = pivoting( [ solution , current ] , walk , evaluate ) ;\n\n\t\tif ( mutation === null ) break ;\n\n\t\tapply( solution , mutation ) ;\n\n\t\tyield [ solution , fitness ] ;\n\n\t\tcurrent = fitness ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 13,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "II",
+    "memberof": "src/localsearch/II.js",
+    "longname": "src/localsearch/II.js~II",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/localsearch/II.js",
+    "importStyle": "{II}",
+    "description": "Iterative Improvement",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/localsearch/VND.js",
+    "memberof": null,
+    "longname": "src/localsearch/VND.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "\n/**\n * Variable Neighborhood Descent\n *\n * @param first\n */\n\nexport function* VND ( [ solution , best ] , N , neighborhoods ) {\n\n\tlet k = 0 ;\n\n\twhile ( k < N ) {\n\n\t\tlet n = neighborhoods[k] ;\n\n\t\tlet [ mutation , fitness ] = n.pivoting( [ solution , best ] , n.walk , n.evaluate ) ;\n\n\t\twhile ( fitness > best ) {\n\n\t\t\tbest = fitness ;\n\t\t\tn.apply( solution , mutation ) ;\n\n\t\t\tyield [ solution , fitness ] ;\n\n\t\t\tk = 0 ;\n\t\t\tn = neighborhoods[k] ;\n\t\t\t[ mutation , fitness ] = n.pivoting( [ solution , best ] , n.walk , n.evaluate ) ;\n\n\t\t}\n\n\t\tk += 1 ;\n\n\t}\n\n}\n"
+  },
+  {
+    "__docId__": 15,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "VND",
+    "memberof": "src/localsearch/VND.js",
+    "longname": "src/localsearch/VND.js~VND",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/localsearch/VND.js",
+    "importStyle": "{VND}",
+    "description": "Variable Neighborhood Descent",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "generator": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/localsearch/index.js",
+    "memberof": null,
+    "longname": "src/localsearch/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "export * from './II' ;\nexport * from './VND' ;\n"
+  },
+  {
+    "__docId__": 17,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/pivoting/best.js",
+    "memberof": null,
+    "longname": "src/pivoting/best.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "/**\n * Returns the mutation that improves fitness the most.\n * If this mutation does not exist, returns null.\n *\n * @param first\n */\n\nexport function best ( [ solution , best ] , walk , evaluate ) {\n\n\tlet candidate = null ;\n\n\tfor ( const mutation of walk( solution ) ) {\n\n\t\tconst fitness = evaluate( solution , mutation ) ;\n\n\t\tif ( fitness > best ) {\n\n\t\t\tcandidate = mutation ;\n\t\t\tbest = fitness ;\n\n\t\t}\n\n\t}\n\n\treturn [ candidate , best ] ;\n\n}\n"
+  },
+  {
+    "__docId__": 18,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "best",
+    "memberof": "src/pivoting/best.js",
+    "longname": "src/pivoting/best.js~best",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/pivoting/best.js",
+    "importStyle": "{best}",
+    "description": "Returns the mutation that improves fitness the most.\nIf this mutation does not exist, returns null.",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 19,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/pivoting/first.js",
+    "memberof": null,
+    "longname": "src/pivoting/first.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "/**\n * Returns the first mutation that improves fitness.\n * If this mutation does not exist, returns null.\n *\n * @param first\n */\n\nexport function first ( [ solution , current ] , walk , evaluate ) {\n\n\tfor ( const mutation of walk( solution ) ) {\n\n\t\tconst fitness = evaluate( solution , mutation ) ;\n\n\t\tif ( fitness > current ) return [ mutation , fitness ] ;\n\n\t}\n\n\treturn [ null , current ] ;\n\n}\n"
+  },
+  {
+    "__docId__": 20,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "first",
+    "memberof": "src/pivoting/first.js",
+    "longname": "src/pivoting/first.js~first",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/pivoting/first.js",
+    "importStyle": "{first}",
+    "description": "Returns the first mutation that improves fitness.\nIf this mutation does not exist, returns null.",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 21,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/pivoting/first_and_equal.js",
+    "memberof": null,
+    "longname": "src/pivoting/first_and_equal.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "content": "/**\n * Returns the first mutation that improves fitness or keeps the same fitness\n * value. If this mutation does not exist, returns null.\n *\n * @param first\n */\n\nexport function first_and_equal ( [ solution , current ] , walk , evaluate ) {\n\n\tfor ( const mutation of walk( solution ) ) {\n\n\t\tconst fitness = evaluate( solution , mutation ) ;\n\n\t\tif ( fitness >= current ) return [ mutation , fitness ] ;\n\n\t}\n\n\treturn [ null , current ] ;\n\n}\n"
+  },
+  {
+    "__docId__": 22,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "first_and_equal",
+    "memberof": "src/pivoting/first_and_equal.js",
+    "longname": "src/pivoting/first_and_equal.js~first_and_equal",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/pivoting/first_and_equal.js",
+    "importStyle": "{first_and_equal}",
+    "description": "Returns the first mutation that improves fitness or keeps the same fitness\nvalue. If this mutation does not exist, returns null.",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 23,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/pivoting/first_or_equal.js",
+    "memberof": null,
+    "longname": "src/pivoting/first_or_equal.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 9,
+    "content": "/**\n * Returns the first mutation that improves the fitness value. If such a\n * mutation does not exist, returns the last mutation that keeps fitness the\n * same, or null.\n *\n * @param first\n */\n\nexport function first_or_equal ( [ solution , best ] , walk , evaluate ) {\n\n\tlet candidate = null ;\n\n\tfor ( const mutation of walk( solution ) ) {\n\n\t\tconst fitness = evaluate( solution , mutation ) ;\n\n\t\tif ( fitness > best ) return [ mutation , fitness ] ;\n\n\t\tif ( fitness === best ) {\n\n\t\t\tcandidate = mutation ;\n\t\t\tbest = fitness ;\n\n\t\t}\n\n\t}\n\n\treturn [ candidate , best ] ;\n\n}\n"
+  },
+  {
+    "__docId__": 24,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "first_or_equal",
+    "memberof": "src/pivoting/first_or_equal.js",
+    "longname": "src/pivoting/first_or_equal.js~first_or_equal",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-metaheuristics/src/pivoting/first_or_equal.js",
+    "importStyle": "{first_or_equal}",
+    "description": "Returns the first mutation that improves the fitness value. If such a\nmutation does not exist, returns the last mutation that keeps fitness the\nsame, or null.",
+    "lineNumber": 9,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "first",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 25,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/pivoting/index.js",
+    "memberof": null,
+    "longname": "src/pivoting/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "export * from './best' ;\nexport * from './first' ;\nexport * from './first_and_equal' ;\nexport * from './first_or_equal' ;\n"
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 49,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 56,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 58,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 59,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 60,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 61,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 62,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 64,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 65,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 66,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 69,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 70,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  }
+]
