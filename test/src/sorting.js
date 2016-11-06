@@ -4,6 +4,8 @@
  * using different kinds of metaheuristics.
  */
 
+import test from 'ava' ;
+
 import { head , max , frame , range , list } from 'aureooms-js-itertools' ;
 import { attr , increasing } from 'aureooms-js-compare' ;
 import array from 'aureooms-js-array' ;
