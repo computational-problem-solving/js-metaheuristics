@@ -24,7 +24,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@aureooms/js-array": "^3.1.0",
+    "@aureooms/js-array": "^4.0.0",
     "@aureooms/js-compare": "^1.4.5",
     "@aureooms/js-itertools": "^3.1.0",
     "@aureooms/js-random": "^1.0.2",
