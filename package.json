@@ -1,5 +1,5 @@
 {
-  "name": "aureooms-js-metaheuristics",
+  "name": "@aureooms/js-metaheuristics",
   "description": "Metaheuristic algorithms for JavaScript",
   "version": "2.0.0",
   "author": "Aurélien Ooms <aurelien.ooms@gmail.com>",
@@ -24,10 +24,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "aureooms-js-array": "^3.1.0",
-    "aureooms-js-compare": "^1.4.5",
-    "aureooms-js-itertools": "^3.1.0",
-    "aureooms-js-random": "^1.0.2",
+    "@aureooms/js-array": "^3.1.0",
+    "@aureooms/js-compare": "^1.4.5",
+    "@aureooms/js-itertools": "^3.1.0",
+    "@aureooms/js-random": "^1.0.2",
     "ava": "^0.18.0",
     "babel-cli": "^6.16.0",
     "babel-polyfill": "^6.16.0",
