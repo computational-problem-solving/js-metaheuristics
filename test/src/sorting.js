@@ -6,10 +6,10 @@
 
 import test from 'ava' ;
 
-import { head , max , frame , range , list } from 'aureooms-js-itertools' ;
-import { attr , increasing } from 'aureooms-js-compare' ;
-import array from 'aureooms-js-array' ;
-import random from 'aureooms-js-random' ;
+import { head , max , frame , range , list } from '@aureooms/js-itertools' ;
+import { attr , increasing } from '@aureooms/js-compare' ;
+import array from '@aureooms/js-array' ;
+import random from '@aureooms/js-random' ;
 
 import { II, VND, best, first, first_or_equal, first_and_equal } from '../../src' ;
 
