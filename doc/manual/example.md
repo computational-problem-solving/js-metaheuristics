@@ -47,8 +47,8 @@ for ( const [ candidate , fitness ] of localsearch( [ solution , best ] ) ) ... 
 To keep only the best candidate, maximize over fitness
 
 ```js
-import { increasing , attr } from 'aureooms-js-compare' ;
-import { max } from 'aureooms-js-itertools' ;
+import { increasing , attr } from '@aureooms/js-compare' ;
+import { max } from '@aureooms/js-itertools' ;
 let [ candidate , fitness ] = max( attr( increasing , 1 ) , localsearch( [ solution , best ] ) ) ;
 ```
 
@@ -58,13 +58,13 @@ For non-halting methods you can restrict your search to
 the first `n` candidates
 
 ```js
-import { head } from 'aureooms-js-itertools' ;
+import { head } from '@aureooms/js-itertools' ;
 for ( const [ candidate , fitness ] of head( localsearch( solution , best ) , n ) ) ... ;
 ```
 The same is valid for selecting the best of the first `n` candidates
 
 ```js
-import { increasing , attr } from 'aureooms-js-compare' ;
-import { head , max } from 'aureooms-js-itertools' ;
+import { increasing , attr } from '@aureooms/js-compare' ;
+import { head , max } from '@aureooms/js-itertools' ;
 let [ candidate , fitness ] = max( attr( increasing , 1 ) , head( localsearch( [ solution , best ] ) , n ) ) ;
 ```

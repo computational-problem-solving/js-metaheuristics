@@ -4,10 +4,10 @@ or [npm](https://github.com/npm/npm).
 
 ### jspm
 ```terminal
-jspm install npm:aureooms-js-metaheuristics
+jspm install npm:@aureooms/js-metaheuristics
 ```
 
 ### npm
 ```terminal
-npm install aureooms-js-metaheuristics --save
+npm install @aureooms/js-metaheuristics --save
 ```

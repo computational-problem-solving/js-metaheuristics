@@ -8,7 +8,7 @@ import 'babel-polyfill' ;
 
 Then
 ```js
-const measure = require( 'aureooms-js-metaheuristics' ) ;
+const measure = require( '@aureooms/js-metaheuristics' ) ;
 // or
-import measure from 'aureooms-js-metaheuristics' ;
+import measure from '@aureooms/js-metaheuristics' ;
 ```
