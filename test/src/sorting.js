@@ -8,8 +8,8 @@ import test from 'ava' ;
 
 import { head , max , frame , range , list } from '@aureooms/js-itertools' ;
 import { attr , increasing } from '@aureooms/js-compare' ;
-import array from '@aureooms/js-array' ;
-import random from '@aureooms/js-random' ;
+import { alloc , iota } from '@aureooms/js-array' ;
+import { shuffle } from '@aureooms/js-random' ;
 
 import { II, VND, best, first, first_or_equal, first_and_equal } from '../../src' ;
 
@@ -77,10 +77,10 @@ function walk_2 ( solution ) {
 
 function init ( n ) {
 
-	var solution = array.alloc( n ) ;
-	array.iota( solution , 0 , n , 0 ) ;
+	var solution = alloc( n ) ;
+	iota( solution , 0 , n , 0 ) ;
 
-	random.shuffle( solution , 0 , n ) ;
+	shuffle( solution , 0 , n ) ;
 
 	var inversions = count_inversions( solution ) ;
 
