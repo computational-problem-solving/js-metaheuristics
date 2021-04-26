@@ -1,4 +1,4 @@
-[js-metaheuristics](http://aureooms.github.io/js-metaheuristics)
+[js-metaheuristics](http://make-github-pseudonymous-again.github.io/js-metaheuristics)
 ==
 
 Metaheuristic algorithms for JavaScript.
@@ -16,4 +16,4 @@ for ( const [ candidate , fitness ] of localsearch( [ solution , best ] ) ) ... 
 [![Code Climate](https://img.shields.io/codeclimate/github/aureooms/js-metaheuristics.svg?style=flat)](https://codeclimate.com/github/aureooms/js-metaheuristics)
 [![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-metaheuristics.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-metaheuristics)
 [![GitHub issues](https://img.shields.io/github/issues/aureooms/js-metaheuristics.svg?style=flat)](https://github.com/aureooms/js-metaheuristics/issues)
-[![Documentation](https://aureooms.github.io/js-metaheuristics/badge.svg)](https://aureooms.github.io/js-metaheuristics/source.html)
+[![Documentation](https://make-github-pseudonymous-again.github.io/js-metaheuristics/badge.svg)](https://make-github-pseudonymous-again.github.io/js-metaheuristics/source.html)
