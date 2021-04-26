@@ -20,7 +20,7 @@
     }
   },
   "bugs": {
-    "url": "https://github.com/aureooms/js-metaheuristics/issues"
+    "url": "https://github.com/make-github-pseudonymous-again/js-metaheuristics/issues"
   },
   "dependencies": {},
   "devDependencies": {
@@ -52,7 +52,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aureooms/js-metaheuristics.git"
+    "url": "https://github.com/make-github-pseudonymous-again/js-metaheuristics.git"
   },
   "scripts": {
     "build": "babel src -d lib",
